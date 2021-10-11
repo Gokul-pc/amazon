@@ -1,0 +1,68 @@
+
+
+    <header>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/">Amazon</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav  ml-auto">
+                    {{#if user}}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Products <span class="sr-only">(current)</span></a>
+                    </li>
+
+
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#">Orders</a>
+                    </li>{{/if}}
+
+
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+
+
+                </ul>
+                <div class="nav-item">
+                    {{#if user}}
+                    <a class="nav-link" href="/cart">
+                        <button type="button" class="icon-button">
+                            <span class="material-icons">shopping_cart</span>
+                            <span class="icon-button__badge" id="cart-count">{{cartCount}}</span>
+                        </button>
+                    </a>
+                    {{else}}
+                    <a class="nav-link" href="/login">
+                        <button type="button" class="icon-button">
+                            <span class="material-icons">shopping_cart</span>
+                        </button>
+                    </a>
+                    {{/if}}
+                </div>
+                <div class="dropdown">
+                    <button type="button" class="icon-button" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="material-icons">
+                            account_circle
+                        </span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu1" aria-labelledby="dropdownMenuButton">
+                        {{#if user}}
+                        <h6 class="user-name">{{user.Name}}</h6>
+                        <button class="logout-btn"><a class="text-dec-none" href="/logout">Logout</a></button>
+                        {{else}}
+                        <button class="login-btn"> <a class="text-dec-none" data-target=".bs-example-modal-sm2"
+                                href="/login">Login</a></button>
+                        
+                        {{/if}}
+
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>

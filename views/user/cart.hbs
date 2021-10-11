@@ -1,0 +1,157 @@
+{{!-- <div class="small-container cart-page">
+
+    <table>
+
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Sub Total</th>
+        </tr>{{#each products}}
+        <tr>
+
+            <td>
+                <div class="cart-info">
+                    <img src="/product-images/{{this.product._id}}.png" alt="">
+                    <div class="cart-product-name">
+                        <p>{{this.product.name}}</p>
+                        <small> &#x20B9;{{this.product.price}}</small>
+                        <br>
+                        <a href="/removeProduct" class="btn btn-danger">Remove</a>
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <button class="cart-item-count mr-3"
+                    onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)">-</button>
+                <span id="{{this.product._id}}">{{this.quantity}}</span>
+                <button class="cart-item-count ml-3"
+                    onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)">+</button>
+            </td>
+            <td>'{{this.product.price}}'*'{{this.quantity}}'</td>
+        </tr>
+        {{/each}}
+
+    </table>
+
+    <div class="total-price">
+        <table>
+            <tr>
+                <td>Sub Total</td>
+                <td>AED.200</td>
+            </tr>
+            <tr>
+                <td>Tax</td>
+                <td>AED.13.34</td>
+            </tr>
+            <tr>
+                <td>Grand Total</td>
+                <td>AED.213.34</td>
+
+            </tr>
+
+        </table>
+        <hr>
+    </div>
+    --}}
+
+
+
+
+
+
+    <div class="cart-page">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-8 cart">
+                    <div class="title">
+                        <div class="row">
+                            <div class="col">
+                                <h4><b>Shopping Cart</b></h4>
+                            </div>
+                            <div class="col align-self-center text-right text-muted">3 items</div>
+                        </div>
+
+                    </div>
+                    <div class="cart-item-scroll scrollbar-default">
+                        {{#each products}}
+                        <div class="row border-top border-bottom ">
+
+
+                            <div class="row main align-items-center">
+
+                                <div class="col-2"><img class="img-fluid"
+                                        src="/product-images/{{this.product._id}}.png"></div>
+                                <div class="col">
+                                    <div class="row text-muted">{{this.product.catogery}}</div>
+                                    <div class="row">{{this.product.name}}</div>
+                                </div>
+                                <div class="col">
+                                    <button class="cart-item-count mr-2"
+                                        onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)">-</button>
+                                    <span id="{{this.product._id}}">{{this.quantity}}</span>
+                                    <button class="cart-item-count ml-2"
+                                        onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)">+</button>
+                                </div>
+                                <div class="col">&#x20B9;{{this.product.price}}<span class="close">&#10005;</span></div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+
+                    <div class="back-to-shop"><a href="/">&leftarrow; <span class="text-muted">Back to shop</span></a>
+                    </div>
+                </div>
+                <div class="col-md-4 summary">
+                    <div>
+                        <h5><b>Summary</b></h5>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col" style="padding-left:0;">ITEMS 3</div>
+                        <div class="col text-right">&euro; 132.00</div>
+                    </div>
+                    <form>
+                        <p>SHIPPING</p> <select>
+                            <option class="text-muted">Standard-Delivery- &euro;5.00</option>
+                        </select>
+                        <p>GIVE CODE</p> <input id="code" placeholder="Enter your code">
+                    </form>
+                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                        <div class="col">TOTAL PRICE</div>
+                        <div class="col text-right">&#8377; <span id="total">{{totalValue}}</span></div>
+                    </div> <a href="/place-order"><button class="btn">CHECKOUT</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function changeQuantity(cartId, proId,userId, count) {
+            let quantity = parseInt(document.getElementById(proId).innerHTML)
+            count = parseInt(count)
+            $.ajax({
+                url: '/change-product-quantity',
+                data: {
+                    user:userId,
+                    cart: cartId,
+                    product: proId,
+                    count: count,
+                    quantity: quantity
+                },
+                method: 'post',
+                success: (response) => { 
+                    if (response.removeProduct) {
+                        alert("Product Removed from cart")
+                        location.reload()
+                    } else {
+                        document.getElementById(proId).innerHTML = quantity + count
+                        document.getElementById('total').innerHTML=response.total
+                    }
+
+                },
+
+            })
+        }
+
+
+    </script>

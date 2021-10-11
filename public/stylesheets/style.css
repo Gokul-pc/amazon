@@ -1,0 +1,104 @@
+/* body {
+    margin: 25px;
+} */
+
+
+.icon-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    color: #ffffff;
+    background: #40c9a2;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+}
+
+.icon-button:hover {
+    cursor: pointer;
+}
+
+.icon-button:active {
+    background: #cccccc;
+}
+
+.icon-button__badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 25px;
+    height: 25px;
+    background: red;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+button{
+    outline: none !important;
+}
+
+.dropdown-menu1{
+    margin: 2rem -7rem 0;
+    border: none;
+}
+.user-name{
+    text-transform: uppercase;
+    font-family: Helvetica ;
+    color:#000;
+    font-weight: 600;
+    text-align:center;
+}
+.logout-btn{
+    position: relative;
+    margin-top: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 66px;
+    height: 28px;
+    color: #333333;
+    background: #dddddd;
+    border: none;
+    border-radius: 4px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(0, 0, 0);
+}
+.logout-btn a{
+    font-weight: 400;
+   color: #fff; 
+}
+.login-btn{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 66px;
+    height: 28px;
+    color: #333333;
+    background: #dddddd;
+    border: none;
+    border-radius: 4px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color:#40c9a2;
+}
+
+.login-btn a{
+    font-weight: 400;
+ color: #fff;
+}
+.login-page{
+    margin-top: 10%;
+}
+.text-dec-none{
+    text-decoration: none !important;
+}

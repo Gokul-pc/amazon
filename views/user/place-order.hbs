@@ -1,0 +1,145 @@
+<div class="checkout">
+  <div class="container">
+    <div class="title">
+      <h2>Product Order Form</h2>
+    </div>
+    <form action="" method="" id="checkout-form">
+      <div class="row d-flex">
+        <div class="col-md-8">
+          <label>
+            <span class="fname">Name <span class="required">*</span></span>
+            <input type="text" name="name">
+          </label>
+          <label>
+            <span>Address <span class="required">*</span></span>
+            <input type="text" name="address" placeholder="House number and street name" required>
+          </label>
+          <label>
+            <span>Town / City <span class="required">*</span></span>
+            <input type="text" name="city">
+          </label>
+          <label>
+            <span>Country<span class="required">*</span></span>
+            <input type="text" name="country">
+          </label>
+          <label>
+            <span>State<span class="required">*</span></span>
+            <input type="text" name="state">
+          </label>
+          <label>
+            <span>Postcode / ZIP <span class="required">*</span></span>
+            <input type="text" name="pincode">
+          </label>
+          <label>
+            <span>Phone <span class="required">*</span></span>
+            <input type="tel" name="mobile">
+          </label>
+          <div class="back-to-shop"><a href="/cart">&leftarrow; <span class="text-muted">Back to Cart</span></a>
+          </div>
+          <input type="text" name="userId" id="" value="{{user._id}}" hidden>
+
+        </div>
+        <div class="Yorder  col-md-4 ">
+
+          <table>
+            <tr>
+              <th colspan="2">Your order</th>
+            </tr>
+
+
+            <td>Subtotal</td>
+            <td>&#8377; {{total}}</td>
+            </tr>
+            <tr>
+              <td>Shipping</td>
+              <td>Free shipping</td>
+            </tr>
+          </table><br>
+          <hr>
+          <div>
+            <input type="radio" name="payment-method" value="COD" checked> Cash on Delivery
+          </div>
+          <div>
+            <input type="radio" name="payment-method" value="ONLINE">Online payment<span>
+              <img src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg" alt=""
+                width="50">
+            </span>
+          </div>
+
+          <button type="submit">Place Order</button>
+        </div>
+      </div><!-- Yorder -->
+    </form>
+  </div>
+</div>
+
+<script>
+
+  $('#checkout-form').submit((e) => {
+    e.preventDefault()
+    $.ajax({
+      url: '/place-order',
+      method: 'post',
+      data: $('#checkout-form').serialize(),
+      success: (response) => {
+        alert(response)
+        if (response.codSuccess) {
+          location.href = "/order-success"
+        } else {
+          razorpayPayment(response)
+        }
+      }
+    })
+  })
+  function razorpayPayment(order) {
+
+    var options = {
+      "key": "rzp_test_8bJVknTKBETSq1", // Enter the Key ID generated from the Dashboard
+      "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise 
+      "currency": "INR",
+      "name": "AMAZON",
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": function (response) {
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
+        verifyPayment(response, order)
+
+      },
+      "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+      },
+      "notes": {
+        "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+        "color": "#3399cc"
+      }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+  }
+  function verifyPayment(payment, order) {
+    $.ajax({
+      url: '/verify-payment',
+      data: {
+        payment,
+        order
+      },
+      method: 'post',
+      success:(response)=>{
+        if(response.status){
+          location.href='admin/order-success'
+        }else{
+          alert("payment faild")
+        }
+      }
+    })
+  }
+
+
+</script>

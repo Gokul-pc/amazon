@@ -1,0 +1,38 @@
+{
+  "name": "sample",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "@admin-bro/express": "^3.1.0",
+    "admin-bro": "^4.0.1",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "bson": "^4.4.1",
+    "cookie-parser": "~1.4.4",
+    "cookie-session": "^1.4.0",
+    "datatables.net": "^1.10.25",
+    "datatables.net-dt": "^1.1.0",
+    "debug": "~2.6.9",
+    "express": "^4.16.4",
+    "express-fileupload": "^1.2.1",
+    "express-handlebars": "^5.3.2",
+    "express-session": "^1.17.2",
+    "hbs": "^4.1.2",
+    "http-errors": "~1.6.3",
+    "mongodb": "^4.0.1",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.2",
+    "multer-gridfs-storage": "^5.0.0",
+    "nodemon": "^2.0.12",
+    "objectid": "^3.2.1",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
+    "razorpay": "^2.0.6"
+  },
+  "devDependencies": {
+    "handlebars": "^4.7.7"
+  }
+}
